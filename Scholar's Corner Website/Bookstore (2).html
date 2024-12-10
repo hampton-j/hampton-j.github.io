@@ -1,0 +1,374 @@
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scholar's Corner | Bookstore</title>
+    <style>
+        :root {
+            --primary-color: #DFAEB4;
+            --secondary-color: #4464AD;
+            --background-color: #f5f7fa;
+            --text-color: #2A324B;
+            --accent-color: #FFB6B9;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        nav {
+            background-color: var(--primary-color);
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        .hero {
+            margin-top: 60px;
+            height: 400px;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+                        repeating-linear-gradient(45deg,
+                            var(--primary-color) 0%,
+                            var(--primary-color) 10%,
+                            var(--secondary-color) 10%,
+                            var(--secondary-color) 20%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 1rem;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .genre-filters {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .filter-button {
+            padding: 0.5rem 1.5rem;
+            border: none;
+            border-radius: 20px;
+            background-color: white;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-button:hover, .filter-button.active {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .books-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .book-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .book-cover {
+            width: 100%;
+            height: 300px;
+            background-color: var(--accent-color);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .book-info h3 {
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .book-author {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 0.5rem;
+        }
+
+        .book-price {
+            color: var(--secondary-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .book-format {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .student-price {
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .add-to-cart {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: auto;
+        }
+
+        .add-to-cart:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .genre-label {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .books-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Scholar's Corner</div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="rooms.html">Study Rooms</a>
+                <a href="bookstore.html">Bookstore</a>
+                <a href="cafe.html">Café</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Scholar's Corner Bookstore</h1>
+            <p>Discover your next favorite read</p>
+        </div>
+    </header>
+
+    <div class="genre-filters">
+        <button class="filter-button active">All Books</button>
+        <button class="filter-button">Textbooks</button>
+        <button class="filter-button">Fiction</button>
+        <button class="filter-button">Non-Fiction</button>
+        <button class="filter-button">Science Fiction</button>
+        <button class="filter-button">Mystery</button>
+        <button class="filter-button">Poetry</button>
+        <button class="filter-button">Biography</button>
+    </div>
+
+    <main class="books-container">
+        <div class="books-grid">
+            <!-- Textbooks -->
+            <div class="book-card">
+                <div class="book-cover">📚</div>
+                <div class="book-info">
+                    <span class="genre-label">Textbook</span>
+                    <h3>Introduction to Psychology</h3>
+                    <p class="book-author">By Dr. Sarah Johnson</p>
+                    <p class="book-format">Hardcover | eBook Available</p>
+                    <p class="book-price">$89.99</p>
+                    <p class="student-price">Student Price: $74.99</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Fiction -->
+            <div class="book-card">
+                <div class="book-cover">📖</div>
+                <div class="book-info">
+                    <span class="genre-label">Fiction</span>
+                    <h3>The Midnight Library</h3>
+                    <p class="book-author">By Matt Haig</p>
+                    <p class="book-format">Paperback | eBook Available</p>
+                    <p class="book-price">$16.99</p>
+                    <p class="student-price">Student Price: $14.99</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Science Fiction -->
+            <div class="book-card">
+                <div class="book-cover">🚀</div>
+                <div class="book-info">
+                    <span class="genre-label">Science Fiction</span>
+                    <h3>Project Hail Mary</h3>
+                    <p class="book-author">By Andy Weir</p>
+                    <p class="book-format">Hardcover | eBook Available</p>
+                    <p class="book-price">$24.99</p>
+                    <p class="student-price">Student Price: $21.99</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Mystery -->
+            <div class="book-card">
+                <div class="book-cover">🔍</div>
+                <div class="book-info">
+                    <span class="genre-label">Mystery</span>
+                    <h3>The Silent Patient</h3>
+                    <p class="book-author">By Alex Michaelides</p>
+                    <p class="book-format">Paperback | eBook Available</p>
+                    <p class="book-price">$17.99</p>
+                    <p class="student-price">Student Price: $15.99</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Poetry -->
+            <div class="book-card">
+                <div class="book-cover">📝</div>
+                <div class="book-info">
+                    <span class="genre-label">Poetry</span>
+                    <h3>Milk and Honey</h3>
+                    <p class="book-author">By Rupi Kaur</p>
+                    <p class="book-format">Paperback</p>
+                    <p class="book-price">$14.99</p>
+                    <p class="student-price">Student Price: $12.99</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Biography -->
+            <div class="book-card">
+                <div class="book-cover">👤</div>
+                <div class="book-info">
+                    <span class="genre-label">Biography</span>
+                    <h3>A Promised Land</h3>
+                    <p class="book-author">By Barack Obama</p>
+                    <p class="book-format">Hardcover | eBook Available</p>
+                    <p class="book-price">$34.99</p>
+                    <p class="student-price">Student Price: $29.99</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Filter functionality
+        const filterButtons = document.querySelectorAll('.filter-button');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+                // Add filter functionality here
+                alert(`Filtering by: ${button.textContent}`);
+            });
+        });
+
+        // Add to cart functionality
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', () => {
+                alert('Book added to cart!');
+            });
+        });
+    </script>
+
+
+</body></html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scholar's Corner | Your Study Haven</title>
+    <style>
+        :root {
+            --primary-color: #DFAEB4;
+            --secondary-color: #4464AD;
+            --background-color: #f5f7fa;
+            --text-color: #2A324B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        nav {
+            background-color: var(--primary-color);
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(223, 174, 180, 0.1), rgba(223, 174, 180, 0.2));
+            padding: 0 1rem;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .cta-button {
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+        }
+
+        .primary-button {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .secondary-button {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .features {
+            padding: 4rem 1rem;
+            background-color: white;
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            padding: 2rem;
+            text-align: center;
+            border-radius: 15px;
+            background-color: var(--background-color);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .student-perks {
+            padding: 4rem 1rem;
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .perks-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .perks-container h2 {
+            margin-bottom: 2rem;
+        }
+
+        .perk-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .perk-item {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+        }
+
+        footer {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Scholar's Corner</div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="rooms.html">Study Rooms</a>
+                <a href="bookstore.html">Bookstore</a>
+                <a href="cafe.html">Café</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Your Ultimate Study Haven</h1>
+            <p>Join us at Scholar's Corner - where great minds meet great coffee, books, and study spaces. Exclusive student discounts available!</p>
+            <div class="cta-buttons">
+                <a href="rooms.html" class="cta-button primary-button">Book a Study Room</a>
+                <a href="bookstore.html" class="cta-button secondary-button">Browse Books</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="features-container">
+            <div class="feature-card">
+                <div class="feature-icon">📚</div>
+                <h3>Bookstore</h3>
+                <p>Wide selection of textbooks, study materials, and stationery with student discounts.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3>Study Rooms</h3>
+                <p>Quiet, comfortable, and fully equipped rooms for individual or group study.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">☕</div>
+                <h3>Café</h3>
+                <p>Energize your study session with our selection of beverages and snacks.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="student-perks">
+        <div class="perks-container">
+            <h2>Student Perks</h2>
+            <div class="perk-list">
+                <div class="perk-item">
+                    <h3>15% Off</h3>
+                    <p>On all textbooks with valid student ID</p>
+                </div>
+                <div class="perk-item">
+                    <h3>Happy Hour</h3>
+                    <p>20% off on beverages Monday-Friday, 2-4 PM</p>
+                </div>
+                <div class="perk-item">
+                    <h3>Study Room Discount</h3>
+                    <p>Special rates for students on room bookings</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2024 Scholar's Corner. All rights reserved.</p>
+    </footer>
+
+
+</body></html>
